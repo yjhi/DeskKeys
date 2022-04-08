@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     tools.cpp
 
 HEADERS  += mainwindow.h \
-    tools.h
+    tools.h \
+    keyutils.h
 
 FORMS    += mainwindow.ui \
     tools.ui

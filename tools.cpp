@@ -2,16 +2,20 @@
 #include "ui_tools.h"
 #include<windows.h>
 #include<QThread>
+
+#include"keyutils.h"
+#include<QTimer>
 Tools::Tools(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Tools)
 {
     ui->setupUi(this);
 
-    this->setFocusPolicy(Qt::NoFocus);
+    HWND h=(HWND)this->winId();
+    KeyUtils::SetTopMost(h);
 
-    this->setWindowFlags(Qt::Tool);
-    //this->setWindowFlags(Qt::WindowTransparentForInput);
+    KeyUtils::SetWinNoActive(h);
+
 }
 
 Tools::~Tools()
@@ -22,21 +26,18 @@ Tools::~Tools()
 void Tools::on_pushButton_5_clicked()
 {
 
-    keybd_event(VK_CONTROL,0,0,0);
+    QTimer::singleShot(1500, this,[&](){
 
-    keybd_event(VK_HOME,0,0,0);
-    QThread::msleep(200);
-     keybd_event(VK_HOME,0,2,0);
+        KeyUtils::ClickMKey(VK_CONTROL,VK_HOME);
+    });
 
-         keybd_event(VK_CONTROL,0,2,0);
 }
 
 void Tools::on_pushButton_4_clicked()
 {
-    keybd_event(VK_HOME,0,0,0);
-    QThread::msleep(200);
-     keybd_event(VK_HOME,0,2,0);
 
-
+    QTimer::singleShot(1500, this,[&](){
+        KeyUtils::ClickKey(VK_HOME);
+    });
 
 }
